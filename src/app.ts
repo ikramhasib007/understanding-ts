@@ -20,14 +20,44 @@ class Department {
   }
 }
 
-const accounting = new Department('d1', 'Accounting');
-console.log('accounting: ', accounting);
-accounting.describe()
+const department = new Department('d1', 'Accounting');
+console.log('department: ', department);
+department.describe()
 
+department.addEmployee('Max')
+department.addEmployee('Manu')
+// department.employees.push('Julian')
+department.printEmployeeInformation()
+
+// const departmentCopy = { name: 'New', describe: department.describe }
+// departmentCopy.describe()
+
+// Inheritance
+class ITDepartment extends Department {
+  constructor(id: string, public admins: string[]) {
+    super(id, 'IT')
+  }
+}
+
+const it = new ITDepartment('d2', ['Max'])
+it.addEmployee('Max')
+it.addEmployee('Manu')
+console.log('it: ', it);
+
+class AccountingDepartment extends Department {
+  constructor(id: string, private reports: string[]) {
+    super(id, 'Accounting');
+  }
+
+  addReport(text: string) {
+    this.reports.push(text);
+  }
+  printReports() {
+    console.log(this.reports)
+  }
+}
+
+const accounting = new AccountingDepartment('d3', [])
 accounting.addEmployee('Max')
 accounting.addEmployee('Manu')
-// accounting.employees.push('Julian')
-accounting.printEmployeeInformation()
-
-// const accountingCopy = { name: 'New', describe: accounting.describe }
-// accountingCopy.describe()
+console.log('accounting: ', accounting);
