@@ -1,4 +1,9 @@
 class Department {
+  /**
+   * Static properties are used when we'd like to store class-level data, also not bound to an instance.
+   * Neither static methods nor static properties can be called on instances of the class. Instead, they're called on the class itself.
+   */
+  static fiscalYear: number = 2020;
   // private readonly id: string;
   // public name: string;
   protected employees: string[] = [];
@@ -18,7 +23,12 @@ class Department {
     console.log(this.employees.length);
     console.log(this.employees)
   }
+  static createEmployee(name: string) {
+    return { name }
+  }
 }
+
+console.log(Department.createEmployee("Ikram"), Department.fiscalYear);
 
 const department = new Department('d1', 'Accounting');
 console.log('department: ', department);
