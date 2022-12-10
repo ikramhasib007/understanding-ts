@@ -1,7 +1,7 @@
 class Department {
   // private readonly id: string;
   // public name: string;
-  private employees: string[] = [];
+  protected employees: string[] = [];
 
   constructor(private readonly id: string, public name: string) { // Shorthand Initialization
     // this.id = id;
@@ -49,7 +49,14 @@ class AccountingDepartment extends Department {
     super(id, 'Accounting');
   }
 
-  addReport(text: string) {
+  addEmployee(employee: string): void {
+    if(employee === 'Max') {
+      return;
+    }
+    this.employees.push(employee)
+  }
+
+  addReport(text: string): void {
     this.reports.push(text);
   }
   printReports() {
