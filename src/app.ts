@@ -53,7 +53,7 @@ class AccountingDepartment extends Department {
     }
     throw new Error("No report found.")
   }
-
+  // setter & getter defination name maybe the same
   set mostRecentReport(value: string) { // setter "set" for to make publicly assignable private property
     if(!value) {
       throw new Error('Please pass in a valid value!')
