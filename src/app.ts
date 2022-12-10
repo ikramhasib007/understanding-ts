@@ -1,4 +1,4 @@
-class Department {
+abstract class Department {
   /**
    * Static properties are used when we'd like to store class-level data, also not bound to an instance.
    * Neither static methods nor static properties can be called on instances of the class. Instead, they're called on the class itself.
@@ -8,13 +8,14 @@ class Department {
   // public name: string;
   protected employees: string[] = [];
 
-  constructor(private readonly id: string, public name: string) { // Shorthand Initialization
+  constructor(protected readonly id: string, public name: string) { // Shorthand Initialization
     // this.id = id;
     // this.name = n;
   }
-  describe(this: Department) { // additional safety purposes
-    console.log('Department is ', this.name);
-  }
+  // describe(this: Department) { // additional safety purposes
+  //   console.log('Department is ', this.name);
+  // }
+  abstract describe(this: Department): void;
 
   addEmployee(employee: string) {
     this.employees.push(employee)
@@ -30,14 +31,14 @@ class Department {
 
 console.log(Department.createEmployee("Ikram"), Department.fiscalYear);
 
-const department = new Department('d1', 'Accounting');
-console.log('department: ', department);
-department.describe()
+// const department = new Department('d1', 'Accounting');
+// console.log('department: ', department);
+// department.describe()
 
-department.addEmployee('Max')
-department.addEmployee('Manu')
+// department.addEmployee('Max')
+// department.addEmployee('Manu')
 // department.employees.push('Julian')
-department.printEmployeeInformation()
+// department.printEmployeeInformation()
 
 // const departmentCopy = { name: 'New', describe: department.describe }
 // departmentCopy.describe()
@@ -47,11 +48,15 @@ class ITDepartment extends Department {
   constructor(id: string, public admins: string[]) {
     super(id, 'IT')
   }
+  describe(this: ITDepartment): void {
+    console.log('ITDepartment ID ' + this.id);
+  }
 }
 
 const it = new ITDepartment('d2', ['Max'])
 it.addEmployee('Max')
 it.addEmployee('Manu')
+it.describe()
 console.log('it: ', it);
 
 class AccountingDepartment extends Department {
@@ -83,6 +88,10 @@ class AccountingDepartment extends Department {
     this.employees.push(employee)
   }
 
+  describe() {
+    console.log('Accounting Department: ID ' + this.id);
+  }
+
   addReport(text: string): void {
     this.reports.push(text);
     this.lastReport = text;
@@ -101,4 +110,5 @@ accounting.mostRecentReport = "John's salary" // general assign
 console.log(accounting.mostRecentReport)
 accounting.addEmployee('Max')
 accounting.addEmployee('Manu')
+accounting.describe()
 console.log('accounting: ', accounting);
