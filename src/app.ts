@@ -45,8 +45,25 @@ it.addEmployee('Manu')
 console.log('it: ', it);
 
 class AccountingDepartment extends Department {
+  private lastReport: string;
+
+  get mostRecentReport() { // getter "get" for to publicly accessible private property
+    if(this.lastReport) {
+      return this.lastReport;
+    }
+    throw new Error("No report found.")
+  }
+
+  set mostRecentReport(value: string) { // setter "set" for to make publicly assignable private property
+    if(!value) {
+      throw new Error('Please pass in a valid value!')
+    }
+    this.addReport(value)
+  }
+
   constructor(id: string, private reports: string[]) {
     super(id, 'Accounting');
+    this.lastReport = reports[0];
   }
 
   addEmployee(employee: string): void {
@@ -58,6 +75,7 @@ class AccountingDepartment extends Department {
 
   addReport(text: string): void {
     this.reports.push(text);
+    this.lastReport = text;
   }
   printReports() {
     console.log(this.reports)
@@ -65,6 +83,12 @@ class AccountingDepartment extends Department {
 }
 
 const accounting = new AccountingDepartment('d3', [])
+
+accounting.mostRecentReport = "John's salary" // general assign 
+
+// accounting.addReport("Manu's salary")
+// accounting.addReport("Max's salary")
+console.log(accounting.mostRecentReport)
 accounting.addEmployee('Max')
 accounting.addEmployee('Manu')
 console.log('accounting: ', accounting);
