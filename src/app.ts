@@ -1,9 +1,9 @@
 class Department {
-  // private id: string;
+  // private readonly id: string;
   // public name: string;
   private employees: string[] = [];
 
-  constructor(private id: string, public name: string) { // Shorthand Initialization
+  constructor(private readonly id: string, public name: string) { // Shorthand Initialization
     // this.id = id;
     // this.name = n;
   }
