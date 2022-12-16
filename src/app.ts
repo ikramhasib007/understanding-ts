@@ -61,7 +61,7 @@ console.log('it: ', it);
 
 class AccountingDepartment extends Department {
   private lastReport: string;
-  private static instance: AccountingDepartment;
+  private static instance: AccountingDepartment; // Singletons & Private Constructors
 
   get mostRecentReport() { // getter "get" for to publicly accessible private property
     if(this.lastReport) {
@@ -77,12 +77,12 @@ class AccountingDepartment extends Department {
     this.addReport(value)
   }
 
-  private constructor(id: string, private reports: string[]) {
+  private constructor(id: string, private reports: string[]) { // Singletons & Private Constructors
     super(id, 'Accounting');
     this.lastReport = reports[0];
   }
 
-  static getInstance() {
+  static getInstance() { // For Singletons behaviour
     if(AccountingDepartment.instance) {
       return this.instance;
     }
