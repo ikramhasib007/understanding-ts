@@ -1,44 +1,24 @@
-// type AddFn = (n1: number, n2: number) => number;
-interface AddFn { // interfaces as function types
-  (n1: number, n2: number): number
+type Admin = {
+  name: string;
+  privileges: string[];
 }
 
-let add: AddFn;
-
-add = (n1: number, n2: number) => {
-  return n1 + n2;
+type Employee = {
+  name: string;
+  startDate: Date;
 }
 
-interface Named {
-  readonly name?: string;
-  outputName?: string; // optional
+type ElevatedEmployee = Admin & Employee; // Intersection Types => conjuction of object from multiple types
+
+let n1: ElevatedEmployee;
+
+n1 = {
+  name: 'Max',
+  privileges: ['create-server'],
+  startDate: new Date(),
 }
 
-interface Greetable extends Named {
-  greet(phrase: string): void;
-}
+type Combinable = string | number;
+type Numeric = number | boolean;
 
-class Person implements Greetable {
-  name?: string;
-  public age = 33;
-  constructor(n?: string) {
-    if(n) {
-      this.name = n;
-    }
-  }
-
-  greet(phrase: string) {
-    if(this.name) {
-      console.log(phrase + ' ' + this.name);
-    } else {
-      console.log('Hi...!');
-    }
-  }
-}
-
-let user1: Greetable;
-
-user1 = new Person()
-console.log('user1: ', user1);
-
-user1.greet('Hi folks - I\'m')
+type Universal = Combinable & Numeric; // Intersection Types
