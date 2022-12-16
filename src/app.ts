@@ -1,5 +1,8 @@
-interface Greetable {
-  name: string;
+interface Named {
+  readonly name: string;
+}
+
+interface Greetable extends Named {
   greet(phrase: string): void;
 }
 
@@ -12,6 +15,9 @@ class Person implements Greetable {
   }
 }
 
-let user1 = new Person('Ikram')
+let user1: Greetable;
+
+user1 = new Person('Ikram')
+console.log('user1: ', user1);
 
 user1.greet('Hi folks - I\'m')
