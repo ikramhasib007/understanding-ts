@@ -106,3 +106,7 @@ function moveForward(animal: Animal) {
 }
 
 moveForward({ type: 'bird', flyingSpeed: 1000 })
+
+// Type Casting
+const inputElement = document.getElementById("text-input")! as HTMLInputElement; // Type Casting
+inputElement.value = 'Hi there!'
