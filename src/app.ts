@@ -25,13 +25,27 @@ type Universal = Combinable & Numeric; // Intersection Types
 
 
 // TYPE GUARDS
+// function add(a: Combinable, b: Combinable) {
+//   if(typeof a === 'string' && typeof b === 'string') { // Type Guards [typeof] run on runtime
+//     return a.toString() + b.toString()
+//   } else if(typeof a === 'number' && typeof b === 'number') { // Type Guards
+//     return a + b;
+//   }
+// }
+
+// Function Overloads => possible returns, Just up-line at a function
+function add(a: number, b: number): number;
+function add(a: string, b: string): string;
+function add(a: string, b: number): string;
+function add(a: number, b: string): string;
 function add(a: Combinable, b: Combinable) {
   if(typeof a === 'string' && typeof b === 'string') { // Type Guards [typeof] run on runtime
     return a.toString() + b.toString()
-  } else if(typeof a === 'number' && typeof b === 'number') { // Type Guards
-    return a + b;
   }
+  return (a as number) + (b as number);
 }
+
+const result = add('2', '3')
 
 type UnknownEmployee = Employee | Admin;
 
