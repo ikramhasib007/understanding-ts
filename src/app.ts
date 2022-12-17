@@ -16,7 +16,12 @@ promise.then((data) => {
 //   return Object.assign({}, objA, objB)
 // }
 
-function merge<T, U>(objA: T, objB: U) { // return's conjunction of types
+// function merge<T, U>(objA: T, objB: U) { // return's conjunction of types
+//   return Object.assign({}, objA, objB)
+// }
+
+// Working with constraints
+function merge<T extends object, U extends object>(objA: T, objB: U) { // make sure parametter is an object
   return Object.assign({}, objA, objB)
 }
 const mergedObj = merge({ name: 'Max' }, { age: 30 })
