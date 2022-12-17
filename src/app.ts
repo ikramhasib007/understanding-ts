@@ -75,3 +75,25 @@ textStorage.addItem('There...!')
 textStorage.removeItem('Ikram')
 
 console.log('textStorage: ', textStorage.getItems());
+
+// Generic Utility Types
+interface CourseGoal {
+  title: string;
+  description: string;
+  completeUntil: Date;
+}
+
+// Partial Utility Types
+function createCourseGoal(title: string, description: string, completeUntil: Date): CourseGoal {
+  const courseGoal: Partial<CourseGoal> = {};
+  courseGoal.title = 'TypeScript';
+  courseGoal.description = 'Beginner to advanced TypeScript';
+  courseGoal.completeUntil = new Date();
+  return courseGoal as CourseGoal;
+}
+
+// Readonly Utility Types
+const studentNames: Readonly<string[]> = ['Max', 'Anna'];
+// studentNames.push('Manu')
+// studentNames.push('Jane')
+// studentNames.pop()
