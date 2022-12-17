@@ -110,3 +110,14 @@ moveForward({ type: 'bird', flyingSpeed: 1000 })
 // Type Casting
 const inputElement = document.getElementById("text-input")! as HTMLInputElement; // Type Casting
 inputElement.value = 'Hi there!'
+
+// Index property
+interface ErrorContainer { // { email: 'Not a valid email', username: 'Must be start with capital character' }
+  [prop: string]: string;
+}
+
+const errorBag: ErrorContainer = {
+  email: 'Not a valid email',
+  username: 'Must be start with a Capital character',
+  1: 'It is possible to use number as index, because number with treated as string after'
+}
