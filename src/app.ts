@@ -32,7 +32,7 @@ function WithTemplate(template: string, hookId: string) {
         const p = new originalConstructor()
         const hookEl = document.getElementById(hookId)!
         hookEl.innerHTML = template;
-        document.querySelector('h1')!.innerText = p.name;
+        document.querySelector('h1')!.innerText = p.name || _[0];
       }
     }
   }
@@ -110,3 +110,31 @@ class Product {
     return this._price * (1 + tax);
   }
 }
+
+// Creating the Autobind decorator
+function Autobind(target: any, methodName: string | Symbol, descriptor: PropertyDescriptor): PropertyDescriptor {
+  const originalMethod = descriptor.value;
+  const adjDescriptor: PropertyDescriptor = {
+    configurable: true,
+    enumerable: false,
+    get() {
+      const foundBd = originalMethod.bind(this)
+      return foundBd;
+    }
+  }
+  return adjDescriptor;
+}
+
+class Printer {
+  message: string = 'Works fine!';
+
+  @Autobind
+  showMessage() {
+    console.log(this.message);
+  }
+}
+
+const p = new Printer()
+
+const b1 = document.querySelector('button')!;
+b1.addEventListener('click', p.showMessage)
