@@ -36,7 +36,6 @@ const pers = new Person()
 console.log('pers: ', pers);
 
 // --
-// When class instantiate then "property decorator" executes 
 // Property decorator
 function Log(target: any, propertyName: string | Symbol) {
   console.log('Property decorator!');
