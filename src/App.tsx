@@ -14,10 +14,16 @@ function App() {
     setTodos(prevState => ([...prevState, { id: Math.random().toString(), text }]))
   }
 
+  const onDeleteTodoHandler = (todoId: string) => {
+    setTodos(prevState => {
+      return prevState.filter(item => item.id !== todoId)
+    })
+  }
+
   return (
     <div className="App">
       <NewTodo onAddTodo={handleAddTodo} />
-      <TodoList items={todos} />
+      <TodoList items={todos} onDeleteTodo={onDeleteTodoHandler} />
     </div>
   );
 }
