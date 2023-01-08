@@ -22,6 +22,7 @@ function WithTemplate(template: string, hookId: string) {
 
 @Logger('logger messages...')  // 1
 @WithTemplate('<h1>My customized title</h1>', 'app') // 2
+// executes when defined
 // Decorator executes by bottom up pattern but function executes by general javascript styles
 class Person {
   name: string = 'Max';
@@ -33,3 +34,33 @@ class Person {
 
 const pers = new Person()
 console.log('pers: ', pers);
+
+// --
+// When class instantiate then property decorator executes 
+function Log(target: any, propertyName: string | Symbol) {
+  console.log('Property decorator!');
+  console.log(target, propertyName);
+}
+
+class Product {
+  @Log
+  title: string;
+  private _price: number;
+
+  set price(val: number) {
+    if(val > 0) {
+      this._price = val;
+    } else {
+      throw new Error('Invalid value - should be a positive integer!')
+    }
+  }
+
+  constructor(t: string, p: number) {
+    this.title = t;
+    this._price = p;
+  }
+
+  getPriceWithTax(tax: number) {
+    return this._price * (1 + tax);
+  }
+}
