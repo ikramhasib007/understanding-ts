@@ -1,6 +1,7 @@
 // Needs to enable "experimentalDecorators" and "es2016" on tsconfig.json file
 
 function Logger(loggerMessge: string) {
+  console.log('LOGGER FACTORY');
   return function(constructor: Function) { // Decorator Factory { return as function }
     console.log(loggerMessge);
     console.log('constructor: ', constructor);
@@ -8,7 +9,9 @@ function Logger(loggerMessge: string) {
 }
 
 function WithTemplate(template: string, hookId: string) {
+  console.log('TEMPLATE FACTORY');
   return function(constructor: any) {
+    console.log('Rendering template...');
     const p = new constructor()
     const hookEl = document.getElementById(hookId)!
     hookEl.innerHTML = template;
@@ -17,8 +20,9 @@ function WithTemplate(template: string, hookId: string) {
 }
 
 
-// @Logger('logger messages...')
-@WithTemplate('<h1>My customized title</h1>', 'app')
+@Logger('logger messages...')  // 1
+@WithTemplate('<h1>My customized title</h1>', 'app') // 2
+// Decorator executes by bottom up pattern but function executes by general javascript styles
 class Person {
   name: string = 'Max';
 
