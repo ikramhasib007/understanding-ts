@@ -138,3 +138,36 @@ const p = new Printer()
 
 const b1 = document.querySelector('button')!;
 b1.addEventListener('click', p.showMessage)
+
+// ... 
+
+function Required(target: any, propertyName: string | Symbol) {
+  console.log('target: ', target);
+  console.log('propertyName: ', propertyName);
+}
+function PositiveNumber() {}
+function validate() {}
+class Course {
+  @Required
+  title: string;
+
+  price: number;
+
+  constructor(t: string, p: number) {
+    this.title = t;
+    this.price = p;
+  }
+}
+
+const courseForm = document.querySelector('form')!;
+courseForm.addEventListener('submit', event => {
+  event.preventDefault();
+  const titleEl = document.getElementById('title') as HTMLInputElement;
+  const priceEl = document.getElementById('price') as HTMLInputElement;
+
+  const title = titleEl.value;
+  const price = +priceEl.value;
+
+  const course = new Course(title, price)
+  console.log('course: ', course);
+})
