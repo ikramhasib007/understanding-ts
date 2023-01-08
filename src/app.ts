@@ -8,14 +8,33 @@ function Logger(loggerMessge: string) {
   }
 }
 
+// Executes when a class has "defined"
+// function WithTemplate(template: string, hookId: string) {
+//   console.log('TEMPLATE FACTORY');
+//   return function(constructor: any) {
+//     console.log('Rendering template...');
+//     const p = new constructor()
+//     const hookEl = document.getElementById(hookId)!
+//     hookEl.innerHTML = template;
+//     document.querySelector('h1')!.innerText = p.name;
+//   }
+// }
+
+// Executes when a class has "instantiate"
 function WithTemplate(template: string, hookId: string) {
   console.log('TEMPLATE FACTORY');
-  return function(constructor: any) {
-    console.log('Rendering template...');
-    const p = new constructor()
-    const hookEl = document.getElementById(hookId)!
-    hookEl.innerHTML = template;
-    document.querySelector('h1')!.innerText = p.name;
+  return function<T extends { new(...args: any[]): { name: string } }>(originalConstructor: T) {
+    return class extends originalConstructor {
+      constructor(..._: any[]) {
+        super()
+        console.log('_: ', _);
+        console.log('Rendering template...');
+        const p = new originalConstructor()
+        const hookEl = document.getElementById(hookId)!
+        hookEl.innerHTML = template;
+        document.querySelector('h1')!.innerText = p.name;
+      }
+    }
   }
 }
 
@@ -27,12 +46,13 @@ function WithTemplate(template: string, hookId: string) {
 class Person {
   name: string = 'Max';
 
-  constructor() {
+  constructor(name: string) {
+    this.name = name;
     console.log('Creating person object...');
   }
 }
 
-const pers = new Person()
+const pers = new Person('Ikram')
 console.log('pers: ', pers);
 
 // --
