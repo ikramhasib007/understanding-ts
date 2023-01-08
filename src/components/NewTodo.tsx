@@ -1,7 +1,7 @@
 import React, { useRef } from 'react'
 
 type NewTodoProps = {
-  onAddTodo: (T: string) => void
+  onAddTodo: (t: string) => void
 }
 
 const NewTodo: React.FC<NewTodoProps> = (props) => {

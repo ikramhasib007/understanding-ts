@@ -1,13 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import NewTodo from './components/NewTodo';
 import TodoList from './components/TodoList';
 
+export interface Todo {
+  id: string;
+  text: string;
+}
+
 function App() {
-  const todos = [{ id: 't1', text: 'Just finished!' }]
+  const [todos, setTodos] = useState<Todo[]>([])
 
-  const handleAddTodo = (newTodo: string) => {
-    console.log('newTodo: ', newTodo);
-
+  const handleAddTodo = (text: string) => {
+    setTodos(prevState => ([...prevState, { id: Math.random().toString(), text }]))
   }
 
   return (
